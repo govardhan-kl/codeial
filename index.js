@@ -2,6 +2,9 @@ const express = require('express');
 const app = express();
 const port = 8002;
 
+//we are telling all get,post etc are doing in below file, use below express Router
+app.use('/',require('./routes/index')); //we can give app.use(require('./routes)); by defaultly it will fetch index.js
+
 
 app.listen(port,function(err){
     if (err){
