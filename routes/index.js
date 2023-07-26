@@ -8,16 +8,13 @@ router.get('/fromrouter', function(req,res){
     res.end("<h1>Fetched from Router Module</h1>")
 })
 
+
+
 router.get('/',home_controller.home);
+router.get('/homeNo',home_controller.homeNo);
 
-
-
-
-
-
-
-
-
+//instead of going to main index file and accesing routes of users.js seperately, we can do it in here itself as below
+router.use('/users',require('./users')); //users.js routes are called whenever user enters localjost:/users
 
 
 module.exports = router;
