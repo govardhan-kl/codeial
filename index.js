@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const port = 8002;
+const expressLayouts = require('express-ejs-layouts');
+
+app.use(expressLayouts);//need to call before routes are called so that it knows layouts are created
 
 //setting up view engine
 app.set('view engine', 'ejs');
