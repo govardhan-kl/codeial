@@ -3,7 +3,13 @@ const app = express();
 const port = 8002;
 const expressLayouts = require('express-ejs-layouts');
 
+app.use(express.static('assets'));
+
 app.use(expressLayouts);//need to call before routes are called so that it knows layouts are created
+
+//extracting styles and scripts from sub pages into layouts
+app.set('layout extractStyles',true);
+app.set('layout extractScripts',true);
 
 //setting up view engine
 app.set('view engine', 'ejs');
