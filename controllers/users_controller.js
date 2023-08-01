@@ -57,6 +57,6 @@ module.exports.create = function(req,res){
 }
 
 module.exports.login = function(req,res){
-    console.log(req)
+    console.log("logged in")
     res.redirect('/users/profile')
 }
