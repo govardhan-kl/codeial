@@ -4,6 +4,15 @@ div{
     background-image: url('../images/background.webp')
 
 }
-h1{
+h1,p{
     color: chartreuse;
+}
+
+a{
+    
+    text-decoration: none;
+    background-color: aliceblue;
+    color: red;
+    padding: 5px;
+    border-radius: 2px;
 }

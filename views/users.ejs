@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="/css/users.css">
 <div id="div1">
-<h1><%= user %></h1>
+<h1><%= users %></h1>
+<p style="text-align: end;"><a href="/users/signin">Sign Out</a></p>
+<p><%= user.name %></p>
+<p><%= user.email %></p>
 </div>
 <script src="/js/jquery-3.7.0.js"></script>
 <script src="/js/usersActions.js"></script>
