@@ -1,10 +1,64 @@
-div{
+#div1{
     width: 100%;
-    height: 350px;
+    height: 150px;
     background-image: url('../images/background.webp');
     color: chartreuse;
 
 }
 h1{
     color: chartreuse;
+}
+
+#feed-post{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+}
+
+h4{
+    margin-bottom: 0.5rem;
+}
+
+form{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+form textarea{
+    resize: none;
+    width: 80%;
+    border-radius: 0.5em;
+}
+
+form button{
+    border-radius: 0.5em;
+    width: 15%;
+    background-color: #2a86ef;
+    border: 1.5px solid black;
+}
+
+form button:hover{
+    cursor: pointer;
+    background-color: darkblue;
+    color: white;
+}
+
+#feed-post div{
+    width: 25rem;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.contents{
+    width: 80%;
+    text-align: left;
+    overflow: hidden;
+}
+
+#feed-post div p{
+    margin-top: 10px;
+    margin-bottom: 5px;
 }

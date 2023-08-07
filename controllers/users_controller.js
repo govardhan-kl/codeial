@@ -1,10 +1,18 @@
-const User = require("../models/user")
+const User = require("../models/user");
+const Posts = require('../models/posts');
 
 module.exports.profile = function(req,res){
     // res.end("<h1>User Profile Accesed</h1>")
-    res.render('users',{
-        title : "usersProfile",
-        userPage : "this is the users profile section"
+    Posts.find({user: req.user._id}).populate('user') //this is used to populate the user so that we can display the name instead of userID
+    .then(function(done){
+        res.render('users',{
+            title : "usersProfile",
+            userPage : "this is the users profile section",
+            comments : done
+        })
+    })
+    .catch(function(err){
+        console.log(`Error occured in showing users page ${err}`);
     })
 }
 
@@ -65,7 +73,7 @@ module.exports.create = function(req,res){
 
 module.exports.login = function(req,res){
     console.log("logged in")
-    console.log("requests",req)
+    //console.log("requests",req)
     res.redirect('/users/profile')
 }
 

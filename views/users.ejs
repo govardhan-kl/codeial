@@ -4,5 +4,18 @@
 <p><%= locals.user.name %></p>
 <p><%= locals.user.email %></p>
 </div>
+<section id="feed-post">
+    <h4>Posts</h4>
+    <form action="/posts/create-comments" method="post">
+        <textarea name="content" id="t" cols="30" rows="3" placeholder="Write a comment" required></textarea>
+        <button type="submit">Post</button>
+    </form>
+    <% for(let i of comments){ %>
+    <div>
+        <p class="contents"><%= i.content %></p>
+        <p><b><%= i.user.name %></b></p>
+    </div>
+    <% } %>
+</section>
 <script src="/js/jquery-3.7.0.js"></script>
 <script src="/js/usersActions.js"></script>
