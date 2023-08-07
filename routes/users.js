@@ -8,6 +8,7 @@ router.get('/account',users_controller.account);
 
 router.get('/signin',users_controller.signIn);
 router.get('/signup',users_controller.signUp);
+router.get('/signout', users_controller.destroySession)
 
 router.post('/create',users_controller.create);
 

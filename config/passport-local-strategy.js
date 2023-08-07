@@ -48,7 +48,7 @@ passport.deserializeUser(function(id,done){
 // check if the user is authenticated, we are actually using this as middleware, we are creating a functions
 passport.checkAuthentication = function(req,res,next){
     //if the user is signed in, then pass on the result to next function
-    if(req.isAuthenticated()){
+    if(req.isAuthenticated()){ //most of the time req.isAuthenticated is simply checking whether or not the value req.user is set, but the details can change depending upon your Passport configuration. isAuthenticated method is added to the req object by Passport.js.
         return next()
     }
     res.redirect('/users/signin')
@@ -56,9 +56,9 @@ passport.checkAuthentication = function(req,res,next){
 
 //below is for to set the user for views
 passport.setAuthenticatedUser = function(req,res,next){
-    if(req.isAuthenticated()){
+    if(req.isAuthenticated()){ //So effectively isAuthenticated should return true if req.user has been set to a non-null object and false if req.user is null or false or 0, etc.
         //req.user contains current signin user from the cookies and we are sending this to locals for the views
-        res.locals.user = req.user;
+        res.locals.user = req.user;//this locals helps us to fetch the data in views
     }
     next()
 }

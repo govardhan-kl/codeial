@@ -1,7 +1,8 @@
 div{
     width: 100%;
     height: 350px;
-    background-image: url('../images/background.webp')
+    background-image: url('../images/background.webp');
+    color: chartreuse;
 
 }
 h1{

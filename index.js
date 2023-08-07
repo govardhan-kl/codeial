@@ -9,6 +9,9 @@ const session = require('express-session');// this is for encrption
 const passport = require('passport');//press ctrl + space to get autosuggestion
 const passportLocal = require('./config/passport-local-strategy');
 
+const MongoStore = require('connect-mongo');// this is for adding cookies to db so that whnever server restarts the session doesnt expire
+
+
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 
@@ -32,13 +35,23 @@ app.use(session({
     resave: false, //this is for when a request comes do we need to reqwite the session cokkies everytime
     cookie: {
         maxAge:(1000 * 60 *100)
-    }
+    },
+    store: new MongoStore( //this adds the session to DB
+        {
+            // mongooseConnection: db,
+            autoRemove: 'disabled',
+            mongoUrl: "mongodb://0.0.0.0:27017/Express_folder_structure"
+        },
+        function(err){
+            console.log(err || "connect mongodb setup ok")
+        }
+    )
 }));
 
 //we are telling the app to use paasport
 app.use(passport.initialize()); 
 app.use(passport.session()); //for maintaining sessions
-
+app.use(passport.setAuthenticatedUser)
 
 //we are telling all get,post etc are doing in below file, use below express Router
 app.use('/',require('./routes/index')); //we can give app.use(require('./routes)); by defaultly it will fetch index.js
