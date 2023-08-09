@@ -8,7 +8,14 @@ const postSchema = new mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    // includes the array of comments for that particular post in postschema itself so that is faster to load comments of that particular posts
+    comment:[
+        {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Comments'
+        }
+    ]
 },{
     timestamps:true
 });

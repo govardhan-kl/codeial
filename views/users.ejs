@@ -7,13 +7,28 @@
 <section id="feed-post">
     <h4>Posts</h4>
     <form action="/posts/create-comments" method="post">
-        <textarea name="content" id="t" cols="30" rows="3" placeholder="Write a comment" required></textarea>
+        <textarea name="content" id="t" cols="30" rows="3" placeholder="Create a posts" required></textarea>
         <button type="submit">Post</button>
     </form>
-    <% for(let i of comments){ %>
+    <% for(let i of posts){ %>
     <div>
         <p class="contents"><%= i.content %></p>
         <p><b><%= i.user.name %></b></p>
+    </div>
+    <form action="/comments/create-comments" method="post">
+        <textarea name="content"  cols="35" rows="2" placeholder="write a comment" required></textarea>
+        <input type="hidden" name="post" value="<%= i._id %>">
+        <button type="submit">Add comments</button>
+    </form>
+    <div>
+        <ul id="<%= i._id %>">
+            <% for(let cmnt of i.comment){ %>
+                <li>
+                    <p> <%= cmnt.content %> </p>
+                    <p> <%= cmnt.user.name %> </p>
+                </li>
+            <% } %>
+        </ul>
     </div>
     <% } %>
 </section>

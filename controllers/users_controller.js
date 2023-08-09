@@ -3,12 +3,19 @@ const Posts = require('../models/posts');
 
 module.exports.profile = function(req,res){
     // res.end("<h1>User Profile Accesed</h1>")
-    Posts.find({user: req.user._id}).populate('user') //this is used to populate the user so that we can display the name instead of userID
+    Posts.find({})
+    .populate('user') //this is used to populate the user so that we can display the name instead of userID
+    .populate({
+        path:'comment',
+        populate:{
+            path:'user'
+        }
+    }).exec()
     .then(function(done){
         res.render('users',{
             title : "usersProfile",
             userPage : "this is the users profile section",
-            comments : done
+            posts : done
         })
     })
     .catch(function(err){
