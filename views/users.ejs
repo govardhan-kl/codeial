@@ -13,7 +13,11 @@
     <% for(let i of posts){ %>
     <div>
         <p class="contents"><%= i.content %></p>
-        <p><b><%= i.user.name %></b></p>
+        <p><b><%= i.user.name %></b>
+            <% if (i.user.id == locals.user.id) { %> 
+                <a href="/posts/delete/<%=i.id%>">X</a>
+            <% } %>
+        </p>
     </div>
     <form action="/comments/create-comments" method="post">
         <textarea name="content"  cols="35" rows="2" placeholder="write a comment" required></textarea>
