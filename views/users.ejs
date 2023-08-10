@@ -29,7 +29,11 @@
             <% for(let cmnt of i.comment){ %>
                 <li>
                     <p> <%= cmnt.content %> </p>
-                    <p> <%= cmnt.user.name %> </p>
+                    <p> <%= cmnt.user.name %>
+                        <% if (cmnt.user.id == locals.user.id) { %> 
+                            <a href="/comments/delete/<%=cmnt.id%>">X</a>
+                        <% } %>
+                    </p>
                 </li>
             <% } %>
         </ul>
