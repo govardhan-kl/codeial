@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router(); //this  module helps in seperating routers controllers
 const home_controller = require('../controllers/home_controler'); // this is to import controllers from controller folder
+const passport = require('passport');
 console.log('router loaded');
 
 // below one is just for understanding but actually function(re,res){tasks} we will do all controller tasks in controllers folder
@@ -10,7 +11,7 @@ router.get('/fromrouter', function(req,res){
 
 
 
-router.get('/:id',home_controller.home);
+router.get('/:id', passport.checkAuthentication, home_controller.home);
 router.get('/homeNo',home_controller.homeNo);
 
 //instead of going to main index file and accesing routes of users.js seperately, we can do it in here itself as below

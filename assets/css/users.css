@@ -9,17 +9,28 @@ h1{
     color: chartreuse;
 }
 
-section{
+#users-feed{
     display: flex;
 }
 
 
 #feed-post{
-    width: 80%;
+    width:70%;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-items: center;
+}
+
+#friends_profile{
+    width: 25%;
+    padding: 10px;
+    border-left: 1px solid black;
+}
+
+.commentsection{
+    border-bottom: 1px solid black;
 }
 
 h4{

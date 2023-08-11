@@ -1,30 +1,55 @@
 const User = require("../models/user");
 const Posts = require('../models/posts');
 
-module.exports.profile = function(req,res){
-    // res.end("<h1>User Profile Accesed</h1>")
-    Posts.find({})
-    .populate('user') //this is used to populate the user so that we can display the name instead of userID
-    .populate({
-        path:'comment',
-        populate:{
-            path:'user'
-        }
-    }).exec()
-    .then(function(done){
-        User.find({})
-        .then(function(all_users){
-            res.render('users',{
-                title : "usersProfile",
-                userPage : "this is the users profile section",
-                posts : done,
-                all_users
-            })
-        })
+// module.exports.profile = function(req,res){
+//     // res.end("<h1>User Profile Accesed</h1>")
+//     Posts.find({})
+//     .populate('user') //this is used to populate the user so that we can display the name instead of userID
+//     .populate({
+//         path:'comment',
+//         populate:{
+//             path:'user'
+//         }
+//     }).exec()
+//     .then(function(done){
+//         User.find({})
+//         .then(function(all_users){
+//             res.render('users',{
+//                 title : "usersProfile",
+//                 userPage : "this is the users profile section",
+//                 posts : done,
+//                 all_users
+//             })
+//         })
+//     })
+//     .catch(function(err){
+//         console.log(`Error occured in showing users page ${err}`);
+//     })
+// }
+
+// to make the code simpler and cleaner we can use async await , implemeted below for the profile page
+module.exports.profile = async function(req,res){
+    try{
+    let posts = await Posts.find({})
+        .populate('user')
+        .populate({
+            path:'comment',
+            populate:{
+                path:'user'
+            }
+        });
+    let all_users = await User.find({})
+    
+    return res.render('users',{
+        title : "usersProfile",
+        userPage : "this is the users profile section",
+        posts,
+        all_users
     })
-    .catch(function(err){
-        console.log(`Error occured in showing users page ${err}`);
-    })
+    }catch(err){
+        console.log(`Error: ${err}`);
+        return
+    } 
 }
 
 
@@ -72,6 +97,7 @@ module.exports.signUp = function(req,res){
 }
 
 module.exports.create = function(req,res){
+    req.flash('success','Created account successfully'); //first paraemter is type of flash message
     console.log(req.body)
     if(req.body.password != req.body.confirm_password){
         res.redirect('back')
@@ -100,7 +126,8 @@ module.exports.create = function(req,res){
 }
 
 module.exports.login = function(req,res){
-    console.log("logged in")
+    req.flash('success','Logged in to account successfully');
+    console.log("logged in",req.flash)
     //console.log("requests",req)
     res.redirect('/users/profile')
 }
@@ -108,6 +135,7 @@ module.exports.login = function(req,res){
 module.exports.destroySession = function(req,res){
     req.logout(function(err) { //logout function is given to req by passport
         if (err) { return next(err); }
+        req.flash('success','LoggedOut of account successfully');
         res.redirect('/users/signin');
       });
 }

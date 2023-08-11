@@ -5,21 +5,23 @@
 <p><%= locals.user.email %></p>
 <p><a style="color: red;" href="/<%= locals.user.id %>">Home</a></p>
 </div>
-<section id="feed-post">
-    <h4>Posts</h4>
-    <form action="/posts/create-comments" method="post">
-        <textarea name="content" id="t" cols="30" rows="3" placeholder="Create a posts" required></textarea>
-        <button type="submit">Post</button>
-    </form>
-    <% for(let i of posts){ %>
-        <%- include('_post',{i:i}) -%>
-    <% } %>
-</section>
-<section id="friends_profile">
-    <h4>Friends</h4>
-    <% for(let u of all_users) { %>
-        <p><a href="/<%=u.id%>"><%= u.name %></a></p>
-    <% } %>
-</section>
+<div id="users-feed">
+    <section id="feed-post">
+        <h4>Posts</h4>
+        <form action="/posts/create-comments" method="post">
+            <textarea name="content" id="t" cols="30" rows="3" placeholder="Create a posts" required></textarea>
+            <button type="submit">Post</button>
+        </form>
+        <% for(let i of posts){ %>
+            <%- include('_post',{i:i}) -%>
+        <% } %>
+    </section>
+    <section id="friends_profile">
+        <h4>Friends</h4>
+        <% for(let u of all_users) { %>
+            <p><a href="/<%=u.id%>"><%= u.name %></a></p>
+        <% } %>
+    </section>
+</div>
 <script src="/js/jquery-3.7.0.js"></script>
 <script src="/js/usersActions.js"></script>

@@ -8,6 +8,8 @@ const db = require('./config/mongoose');
 const session = require('express-session');// this is for encrption
 const passport = require('passport');//press ctrl + space to get autosuggestion
 const passportLocal = require('./config/passport-local-strategy');
+const flash = require('connect-flash');
+const customMware = require('./config/middleware');
 
 const MongoStore = require('connect-mongo');// this is for adding cookies to db so that whnever server restarts the session doesnt expire
 
@@ -52,6 +54,9 @@ app.use(session({
 app.use(passport.initialize()); 
 app.use(passport.session()); //for maintaining sessions
 app.use(passport.setAuthenticatedUser)
+
+app.use(flash());
+app.use(customMware.setFlash);
 
 //we are telling all get,post etc are doing in below file, use below express Router
 app.use('/',require('./routes/index')); //we can give app.use(require('./routes)); by defaultly it will fetch index.js
