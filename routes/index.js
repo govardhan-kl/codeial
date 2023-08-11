@@ -10,7 +10,7 @@ router.get('/fromrouter', function(req,res){
 
 
 
-router.get('/',home_controller.home);
+router.get('/:id',home_controller.home);
 router.get('/homeNo',home_controller.homeNo);
 
 //instead of going to main index file and accesing routes of users.js seperately, we can do it in here itself as below

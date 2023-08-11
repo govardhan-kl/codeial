@@ -1,2 +1,14 @@
 <h1><%= heading %></h1>
- 
+<p><a href="/users/profile">Profile</a></p>
+ <% if (locals.user && locals.user.id == current_user.id){ %>
+    <!-- if user matches we do update -->
+    <form action="/users/update/<%=current_user.id%>" method="post">
+        <input type="text" name="name" id="" value="<%=current_user.name%>">
+        <input type="email" name="email" id="" value="<%=current_user.email%>">
+        <button type="submit">Update</button>
+    </form>
+<% } else { %>
+    <!-- if users doesnt match we just display -->
+    <p><%= current_user.name %></p>
+    <p><%= current_user.email %></p>
+<% } %>

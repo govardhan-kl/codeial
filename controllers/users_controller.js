@@ -12,16 +12,37 @@ module.exports.profile = function(req,res){
         }
     }).exec()
     .then(function(done){
-        res.render('users',{
-            title : "usersProfile",
-            userPage : "this is the users profile section",
-            posts : done
+        User.find({})
+        .then(function(all_users){
+            res.render('users',{
+                title : "usersProfile",
+                userPage : "this is the users profile section",
+                posts : done,
+                all_users
+            })
         })
     })
     .catch(function(err){
         console.log(`Error occured in showing users page ${err}`);
     })
 }
+
+
+module.exports.update = function(req,res){
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.user.id, {name:req.body.name, email:req.body.email})
+        .then(function(updated){
+            return res.redirect('back')
+        })
+        .catch(function(err){
+            console.log(`Error in updating`);
+        })
+    }
+    else{
+        return res.status(401).send('<h2>Access is denied</h2>');
+    }
+}
+
 
 module.exports.account = function(req,res){
     // res.end("<h1>User Account Accesed</h1>")
@@ -87,6 +108,6 @@ module.exports.login = function(req,res){
 module.exports.destroySession = function(req,res){
     req.logout(function(err) { //logout function is given to req by passport
         if (err) { return next(err); }
-        res.redirect('/');
+        res.redirect('/users/signin');
       });
 }
