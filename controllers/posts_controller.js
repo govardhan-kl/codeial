@@ -11,6 +11,7 @@ module.exports.createPosts = function(req,res){
     })
     .then(function(done){
         console.log(`successfully added comments ${done}`);
+        req.flash('success','Post succefully posted')
         res.redirect('back')
     })
     .catch(function(err){

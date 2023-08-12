@@ -1,8 +1,8 @@
 module.exports.setFlash = function(req,res,next){
     res.locals.flash = {
         'success': req.flash('success'),
-        'failure': req.flash('failure')
+        'error': req.flash('error')
     }
-    console.log('flashing');
+    //console.log('flashing');
     next();
 }
