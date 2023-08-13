@@ -31,6 +31,7 @@ const Posts = require('../models/posts');
 module.exports.profile = async function(req,res){
     try{
     let posts = await Posts.find({})
+        .sort('-createdAt')
         .populate('user')
         .populate({
             path:'comment',

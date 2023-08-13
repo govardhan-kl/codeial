@@ -8,13 +8,15 @@
 <div id="users-feed">
     <section id="feed-post">
         <h4>Posts</h4>
-        <form action="/posts/create-comments" method="post">
+        <form action="/posts/create-comments" id="post-form" method="post">
             <textarea name="content" id="t" cols="30" rows="3" placeholder="Create a posts" required></textarea>
             <button type="submit">Post</button>
         </form>
-        <% for(let i of posts){ %>
-            <%- include('_post',{i:i}) -%>
-        <% } %>
+        <div id="post-container">
+            <% for(let i of posts){ %>
+                <%- include('_post',{i:i}) -%>
+            <% } %>
+        </div>
     </section>
     <section id="friends_profile">
         <h4>Friends</h4>
@@ -23,5 +25,4 @@
         <% } %>
     </section>
 </div>
-<script src="/js/jquery-3.7.0.js"></script>
 <script src="/js/usersActions.js"></script>

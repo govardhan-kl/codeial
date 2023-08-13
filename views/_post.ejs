@@ -1,20 +1,22 @@
-<div>
-    <p class="contents"><%= i.content %></p>
-    <p><b><%= i.user.name %></b>
-        <% if (i.user.id == locals.user.id) { %> 
-            <a href="/posts/delete/<%=i.id%>">X</a>
-        <% } %>
-    </p>
-</div>
-<form action="/comments/create-comments" method="post">
-    <textarea name="content"  cols="35" rows="2" placeholder="write a comment" required></textarea>
-    <input type="hidden" name="post" value="<%= i._id %>">
-    <button type="submit">Add comments</button>
-</form>
-<div class="commentsection">
-    <ul id="<%= i._id %>">
-        <% for(let cmnt of i.comment){ %>
-            <%- include('_comment',{cmnt:cmnt}) -%>
-        <% } %>
-    </ul>
+<div id="<%= i.id %>"> <%# we will use ids for dleting it in ajax way %>
+    <div>
+        <p class="contents"><%= i.content %></p>
+        <p><b><%= i.user.name %></b>
+            <% if (i.user.id == locals.user.id) { %> 
+                <a class="delete-posts" href="/posts/delete/<%=i.id%>">X</a>
+            <% } %>
+        </p>
+    </div>
+    <form action="/comments/create-comments" method="post">
+        <textarea name="content"  cols="35" rows="2" placeholder="write a comment" required></textarea>
+        <input type="hidden" name="post" value="<%= i._id %>">
+        <button type="submit">Add comments</button>
+    </form>
+    <div class="commentsection">
+        <ul id="<%= i._id %>">
+            <% for(let cmnt of i.comment){ %>
+                <%- include('_comment',{cmnt:cmnt}) -%>
+            <% } %>
+        </ul>
+    </div>
 </div>

@@ -1,22 +1,28 @@
 const Posts = require('../models/posts')
 const Comment = require('../models/comments');
 
-module.exports.createPosts = function(req,res){
-    console.log({content:req.body.content,
-                user:req.user._id
-    })
-    Posts.create({
-        content: req.body.content,
-        user: req.user._id
-    })
-    .then(function(done){
-        console.log(`successfully added comments ${done}`);
+module.exports.createPosts = async function(req,res){
+    try{
+        let post = await Posts.create({
+            content: req.body.content,
+            user: req.user._id
+        })
+
+        if (req.xhr){ // this is to check if a request is ajax or not ajax are xhr requests
+            return res.status(200).json({
+                data:{
+                    post:post
+                },
+                message: 'post created'
+            })
+        }
+        console.log(`successfully added post ${post}`);
         req.flash('success','Post succefully posted')
         res.redirect('back')
-    })
-    .catch(function(err){
+    }
+    catch(err){
         console.log(`Error occured while adding comments ${err}`);
-    })
+    }
 }
 
 
@@ -32,6 +38,15 @@ module.exports.destroyPost = function(req,res){
                 Comment.deleteMany({post:req.params.id})
                 .then(function(commentdeleted){
                     console.log('Deleted',postdeleted, commentdeleted);
+
+                    if(req.xhr){//AJAX
+                        return res.status(200).json({
+                            data:{
+                                post_id:req.params.id
+                            },
+                            message: 'post deleted'
+                        })
+                    }
                     return res.redirect('back');
                 })
                 .catch(function(err){
