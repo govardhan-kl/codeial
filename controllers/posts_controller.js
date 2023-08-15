@@ -11,7 +11,8 @@ module.exports.createPosts = async function(req,res){
         if (req.xhr){ // this is to check if a request is ajax or not ajax are xhr requests
             return res.status(200).json({
                 data:{
-                    post:post
+                    post:post,
+                    username : req.user.name
                 },
                 message: 'post created'
             })

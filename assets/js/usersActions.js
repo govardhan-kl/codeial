@@ -16,7 +16,7 @@
                 data: postForm.serialize(),//this converts the post form data into JSON
                 success:function(data){
                     console.log(data)// we are getting this data from posts_controller
-                    let newPost = newPostDom(data.data.post)
+                    let newPost = newPostDom(data.data.post,data.data.username)
                     $('#post-container').prepend(newPost);
                     deletePost($(' .delete-posts', newPost))//delete-post class inside newPost, space is needed
                 },
@@ -28,13 +28,13 @@
     }
 
     // Methode to create a post in DOM
-    function newPostDom(i){
+    function newPostDom(i, username){
         return $(
         `
         <div id="${i._id}">
             <div>
                 <p class="contents">${i.content }</p>
-                <p><b>${ i.user }</b>
+                <p><b>${ username }</b>
                     <a class="delete-posts" href="/posts/delete/${i._id}">X</a>
                 </p>
             </div>

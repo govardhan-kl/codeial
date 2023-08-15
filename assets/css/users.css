@@ -1,10 +1,24 @@
 #div1{
     width: 100%;
-    height: 150px;
+    height: 180px;
     background-image: url('../images/background.webp');
     color: chartreuse;
-
+    overflow: scroll;
 }
+
+#div1::-webkit-scrollbar{
+    display: none;
+  }
+
+#users-feed{
+    height: 500px;
+    overflow: scroll;
+}
+
+#users-feed::-webkit-scrollbar{
+    display: none;
+  }
+
 h1{
     color: chartreuse;
 }

@@ -1,5 +1,7 @@
 const User = require("../models/user");
 const Posts = require('../models/posts');
+const fs = require('fs');
+const path = require('path');
 
 // module.exports.profile = function(req,res){
 //     // res.end("<h1>User Profile Accesed</h1>")
@@ -54,15 +56,30 @@ module.exports.profile = async function(req,res){
 }
 
 
-module.exports.update = function(req,res){
+module.exports.update = async function(req,res){
     if(req.user.id == req.params.id){
-        User.findByIdAndUpdate(req.user.id, {name:req.body.name, email:req.body.email})
-        .then(function(updated){
-            return res.redirect('back')
-        })
-        .catch(function(err){
-            console.log(`Error in updating`);
-        })
+        try{
+            // let user = await User.findByIdAndUpdate(req.user.id, {name:req.body.name, email:req.body.email});// we cant do update like this for images, bcoz in multer it doesnt recognize req.body so we use mukter fun to access req.body
+            let user = await User.findById(req.params.id);
+            User.uploadAvatar(req,res,function(err){
+                if(err){ console.log('******multer-err****',err)}
+                user.name = req.body.name;
+                user.email= req.body.email
+                if(req.file){
+                    if(user.avatar){//to remove file if already exists
+                        fs.unlinkSync(path.join(__dirname,'..',user.avatar));
+                    }
+                    console.log(req.file)
+                    user.avatar = User.avatarPath+'/'+req.file.filename;
+                }
+                user.save()//saving edited
+                return res.redirect('back')
+            })
+            
+        }
+        catch(err){
+            console.log(`Error in updating`,err);
+        }    
     }
     else{
         return res.status(401).send('<h2>Access is denied</h2>');

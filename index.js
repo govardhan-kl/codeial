@@ -17,6 +17,8 @@ const MongoStore = require('connect-mongo');// this is for adding cookies to db 
 app.use(express.urlencoded({ extended: true }));
 app.use(cookie());
 
+app.use('/uploads',express.static(__dirname+'/uploads'));
+
 app.use(express.static('assets'));
 
 app.use(expressLayouts);//need to call before routes are called so that it knows layouts are created

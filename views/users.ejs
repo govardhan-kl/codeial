@@ -4,14 +4,15 @@
 <p><%= locals.user.name %></p>
 <p><%= locals.user.email %></p>
 <p><a style="color: red;" href="/<%= locals.user.id %>">Home</a></p>
+<img src="<%= locals.user.avatar %>" alt="profile" height="100px" width="100px">
 </div>
+    <h4 style="font-family: sans-serif;">Add a post</h4>
+    <form style="padding: 10px; margin: 2% 25%;" action="/posts/create-comments" id="post-form" method="post">
+        <textarea name="content" id="t" cols="30" rows="3" placeholder="Create a posts" required></textarea>
+        <button type="submit">Post</button>
+    </form>
 <div id="users-feed">
     <section id="feed-post">
-        <h4>Posts</h4>
-        <form action="/posts/create-comments" id="post-form" method="post">
-            <textarea name="content" id="t" cols="30" rows="3" placeholder="Create a posts" required></textarea>
-            <button type="submit">Post</button>
-        </form>
         <div id="post-container">
             <% for(let i of posts){ %>
                 <%- include('_post',{i:i}) -%>
