@@ -9,8 +9,6 @@ router.get('/fromrouter', function(req,res){
     res.end("<h1>Fetched from Router Module</h1>")
 })
 
-
-
 router.get('/:id', passport.checkAuthentication, home_controller.home);
 router.get('/homeNo',home_controller.homeNo);
 
@@ -18,5 +16,7 @@ router.get('/homeNo',home_controller.homeNo);
 router.use('/users',require('./users')); //users.js routes are called whenever user enters localjost:/users
 router.use('/posts',require('./posts'));
 router.use('/comments',require('./comments'));
+
+router.use('/api',require('./api'))
 
 module.exports = router;

@@ -8,6 +8,7 @@ const db = require('./config/mongoose');
 const session = require('express-session');// this is for encrption
 const passport = require('passport');//press ctrl + space to get autosuggestion
 const passportLocal = require('./config/passport-local-strategy');
+const passportJWT = require('./config/passport-jwt-strategy');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 

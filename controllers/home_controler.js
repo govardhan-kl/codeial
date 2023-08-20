@@ -6,6 +6,7 @@ module.exports.home = function(req, res){
     console.log(req.cookies);
     res.cookie('user_id', 25);//we are setting cookie value
     let id = req.params.id;
+    console.log("ID is",req.params.id);
     User.findById(id)
     .then(function(current_user){
         return res.render('home',{
