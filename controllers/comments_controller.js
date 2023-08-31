@@ -1,5 +1,6 @@
 const Comments = require('../models/comments');
 const Posts = require('../models/posts');
+const commentmailer = require('../mailers/comments_mailer');
 
 module.exports.createComment = function(req,res){
     Posts.findById(req.body.post)
@@ -10,7 +11,9 @@ module.exports.createComment = function(req,res){
             post: req.body.post,
             user: req.user._id
         })
-        .then(function(comnt){
+        .then( async function(comnt){
+            let comment = await comnt.populate('user');
+            commentmailer.newComment(comment);
             console.log('Added comments successfully',comnt)
             //we also need to add comment id to the postsDB
             post.comment.push(comnt)
