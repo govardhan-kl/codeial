@@ -16,6 +16,8 @@ router.get('/homeNo',home_controller.homeNo);
 router.use('/users',require('./users')); //users.js routes are called whenever user enters localjost:/users
 router.use('/posts',require('./posts'));
 router.use('/comments',require('./comments'));
+router.use('/likes',require('./likes'));
+
 
 router.use('/api',require('./api'))
 

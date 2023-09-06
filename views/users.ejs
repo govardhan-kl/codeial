@@ -26,4 +26,13 @@
         <% } %>
     </section>
 </div>
+<!-- this is for posts -->
 <script src="/js/usersActions.js"></script>
+<!-- this is gor likes -->
+<script src="/js/create-likes.js"></script>
+<script>
+    $('.toggle-like-button').each(function(){
+        let self = this;
+        let toggleLike = new ToggleLike(self);
+    })
+</script>

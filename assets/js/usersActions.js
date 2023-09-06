@@ -19,6 +19,7 @@
                     let newPost = newPostDom(data.data.post,data.data.username)
                     $('#post-container').prepend(newPost);
                     deletePost($(' .delete-posts', newPost))//delete-post class inside newPost, space is needed
+                    new ToggleLike($(' .toggle-like-button', newPost))
                 },
                 error: function(err){
                     console.log('Error',err);
@@ -43,6 +44,11 @@
                 <input type="hidden" name="post" value="${ i._id }">
                 <button type="submit">Add comments</button>
             </form>
+            <div>
+                <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${ i._id }&type=Posts">
+                    0 Likes
+                </a>
+            </div>
             <div class="commentsection">
                 <ul id="${ i._id }">
                 </ul>

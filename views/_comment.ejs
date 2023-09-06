@@ -5,4 +5,10 @@
             <a href="/comments/delete/<%=cmnt.id%>">X</a>
         <% } %>
     </p>
+    
+    <a class="toggle-like-button" data-likes="<%=cmnt.likes.length%>" href="/likes/toggle/?id=<%=cmnt.id%>&type=Comments">
+            <%=cmnt.likes.length%>Likes
+    </a>
+        
+    
 </li>

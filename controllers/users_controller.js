@@ -40,7 +40,7 @@ module.exports.profile = async function(req,res){
             populate:{
                 path:'user'
             }
-        });
+        }).populate('likes');
     let all_users = await User.find({})
     
     return res.render('users',{

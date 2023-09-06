@@ -1,6 +1,7 @@
 const Comments = require('../models/comments');
 const Posts = require('../models/posts');
 const commentmailer = require('../mailers/comments_mailer');
+const Likes = require('../models/likes');
 
 module.exports.createComment = function(req,res){
     Posts.findById(req.body.post)
@@ -38,7 +39,9 @@ module.exports.deleteComment = function(req,res){
             Comments.findByIdAndDelete(cmnt.id)
             .then(function(deletedcomment){
                 Posts.findByIdAndUpdate(postID, {$pull: {comment:req.params.id}})// this is a default function where it pulls out the data from array and update
-                .then(function(deletedFromPostArray){
+                .then(async function(deletedFromPostArray){
+                    //deleting likes
+                    await Likes.deleteMany({likeable:cmnt._id,onModel:'Comments'})
                     console.log(`deleted comment fromm both posts and comment schema ${deletedcomment}`)
                     res.redirect('back');
                 })

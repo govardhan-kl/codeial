@@ -1,5 +1,6 @@
 const Posts = require('../models/posts')
 const Comment = require('../models/comments');
+const Likes = require('../models/likes');
 
 module.exports.createPosts = async function(req,res){
     try{
@@ -29,11 +30,16 @@ module.exports.createPosts = async function(req,res){
 
 module.exports.destroyPost = function(req,res){
     Posts.findById(req.params.id)
-    .then(function(post){
+    .then(async function(post){
         //.id meand we are converting object id to string, whnever we need to compare object IDs we need to convert to string
         console.log(post)
         if (post.user == req.user.id){
             //post.remove()// depricated: this removes post from DB, mongoose itself searches id of post and deletes it
+
+            //for deleting likes
+            await Likes.deleteMany({likeable:post,onModel:'Posts'});
+            await Likes.deleteMany({_id:{$in:post.comment}});
+
             Posts.findByIdAndDelete(post.id)
             .then(function(postdeleted){
                 Comment.deleteMany({post:req.params.id})
